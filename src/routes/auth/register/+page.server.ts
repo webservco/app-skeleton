@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
-import { userRegisterSchema } from '$lib/schema/userRegisterSchema';
+import { userAuthSchema } from '$lib/schema/userAuthSchema';
 import { getDatabaseError } from '$lib/server/storage/mysql2';
 import { lucia } from '$lib/server/auth/lucia3';
 import { registerUser } from '$lib/server/storage/service/auth/registerUser';
@@ -15,13 +15,13 @@ export const load: PageServerLoad = async (event) => {
   }
 
   return {
-    form: await superValidate(zod(userRegisterSchema)),
+    form: await superValidate(zod(userAuthSchema)),
   };
 };
 
 export const actions: Actions = {
   default: async (event) => {
-    const form = await superValidate(event, zod(userRegisterSchema));
+    const form = await superValidate(event, zod(userAuthSchema));
     if (!form.valid) {
       return fail(400, {
         form,
@@ -40,7 +40,7 @@ export const actions: Actions = {
         ...sessionCookie.attributes,
       });
     } catch (exception) {
-      // Exception alreaady logged in external functionality.
+      // Exception already logged in external functionality.
 
       // Check if error was because email is already existing.
       const databaseError = getDatabaseError(exception);

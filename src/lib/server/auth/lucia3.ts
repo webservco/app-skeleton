@@ -1,9 +1,8 @@
 import { Lucia } from 'lucia';
 import { Mysql2Adapter } from '@lucia-auth/adapter-mysql';
 import { dev } from '$app/environment';
-
-import type { DatabaseUserAttributes } from '$lib/types/database';
 import { databaseConnectionPool } from '$lib/server/storage/mysql2';
+import type { User } from '$lib/types/auth';
 
 const adapter = new Mysql2Adapter(databaseConnectionPool, {
   user: 'auth_user',
@@ -29,6 +28,6 @@ export const lucia = new Lucia(adapter, {
 declare module 'lucia' {
   interface Register {
     Lucia: typeof lucia;
-    DatabaseUserAttributes: DatabaseUserAttributes;
+    DatabaseUserAttributes: User;
   }
 }

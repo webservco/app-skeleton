@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
-export const userRegisterSchema = z.object({
+export const userAuthSchema = z.object({
   email: z.string().email().min(6).max(45),
   password: z.string().min(6).max(45),
 });
 
-export type UserRegisterSchema = typeof userRegisterSchema;
+export type UserAuthSchema = typeof userAuthSchema;

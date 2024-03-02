@@ -10,13 +10,3 @@ export interface DatabaseError {
   sqlMessage: string | null;
   sqlState: string | null;
 }
-
-/**
- * Auth
- */
-export interface DatabaseUserAttributes {
-  id: string;
-  email: string;
-  hashed_password: string;
-  access_level: number;
-}

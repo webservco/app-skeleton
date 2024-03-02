@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import RegisterForm from './register-form.svelte';
+  import AuthForm from '$lib/components/auth/auth-form.svelte';
   export let data: PageData;
 </script>
 
 <div>
-  <RegisterForm data={data.form} />
+  <AuthForm data={data.form} />
 </div>
