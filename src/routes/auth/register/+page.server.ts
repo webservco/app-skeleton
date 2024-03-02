@@ -1,4 +1,4 @@
-import type { PageServerLoad, Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -8,7 +8,13 @@ import { Argon2id } from 'oslo/password';
 import { databaseConnectionPool } from '$lib/server/storage/mysql2';
 import { lucia } from '$lib/server/auth/lucia3';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async (event) => {
+  // Auth.
+  if (event.locals.user) {
+    // User is already logged in.
+    redirect(302, '/auth');
+  }
+
   return {
     form: await superValidate(zod(userRegisterSchema)),
   };
