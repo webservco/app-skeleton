@@ -15,6 +15,8 @@
   function toggleUserMenu() {
     showUserMenu = !showUserMenu;
   }
+
+  export let data;
 </script>
 
 <!--
@@ -32,27 +34,45 @@
         <div class="flex items-center">
           <div class="flex-shrink-0">
             <a class="text-gray-200" href="/" title="Home">
+              Auth
+              <!--
               <img
                 class="h-8 w-8"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                 alt="Your Company"
               />
+              -->
             </a>
           </div>
 
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              {#if data.authenticated}
+                <a
+                  href="/auth"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >Profile</a
+                >
+              {:else}
+                <a
+                  href="/auth/login"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >Login</a
+                >
+                <a
+                  href="/auth/register"
+                  class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                >Register</a
+                >
+              {/if}
+
+              <!--
               <a
-                href="/"
-                class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
-                aria-current="page">Dashboard</a
-              >
-              <a
-                href="/"
-                class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                >Team</a
-              >
+                  href="/"
+                  class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white"
+                  aria-current="page">Dashboard</a
+                >
               <a
                 href="/"
                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
@@ -68,12 +88,14 @@
                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                 >Reports</a
               >
+              -->
             </div>
           </div>
         </div>
 
         <div class="hidden md:block">
           <div class="ml-4 flex items-center md:ml-6">
+            <!--
             <button
               type="button"
               class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -95,10 +117,12 @@
                 />
               </svg>
             </button>
+            -->
 
             <!-- Profile dropdown -->
             <div class="relative ml-3">
               <div>
+                <!--
                 <button
                   on:click={toggleUserMenu}
                   type="button"
@@ -115,6 +139,7 @@
                     alt=""
                   />
                 </button>
+                -->
               </div>
 
               <!--
@@ -207,7 +232,27 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="{showNavigationMenu ? '' : 'hidden'} md:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
+        {#if data.authenticated}
+          <a
+            href="/auth"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >Profile</a
+          >
+        {:else}
+          <a
+            href="/auth/login"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >Login</a
+          >
+          <a
+            href="/auth/register"
+            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >Register</a
+          >
+        {/if}
+
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        <!--
         <a
           href="/"
           class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
@@ -233,7 +278,9 @@
           class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
           >Reports</a
         >
+        -->
       </div>
+      <!--
       <div class="border-t border-gray-700 pb-3 pt-4">
         <div class="flex items-center px-5">
           <div class="flex-shrink-0">
@@ -287,6 +334,7 @@
           >
         </div>
       </div>
+      -->
     </div>
   </nav>
 
