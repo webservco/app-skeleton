@@ -1,12 +1,11 @@
 import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms';
+import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { userRegisterSchema } from '$lib/schema/userRegisterSchema';
-import { generateId } from 'lucia';
-import { Argon2id } from 'oslo/password';
-import { databaseConnectionPool } from '$lib/server/storage/mysql2';
+import { getDatabaseError } from '$lib/server/storage/mysql2';
 import { lucia } from '$lib/server/auth/lucia3';
+import { registerUser } from '$lib/server/storage/service/auth/registerUser';
 
 export const load: PageServerLoad = async (event) => {
   // Auth.
@@ -29,29 +28,32 @@ export const actions: Actions = {
       });
     }
 
-    const user_id = generateId(15);
-    const hashed_password = await new Argon2id().hash(form.data.password);
-    const [result, fields] = await databaseConnectionPool.execute(
-      'INSERT INTO auth_user (id, email, hashed_password) VALUES (?, ?, ?)',
-      [user_id, form.data.email, hashed_password],
-      [user_id, form.data.email, hashed_password],
-    );
-    /** @todo check if already logged in */
-    /** @todo add try/catch, use getDatabaseError */
-    /** @todo check if email is already registered */
-    /** @todo separate function for inserting data (generate id, insert data, return id) */
-    /** @todo implement winston logger */
-    console.log('result', result);
-    console.log('fields', fields);
+    try {
+      // Auth: register user.
+      const user_id = await registerUser(form.data.email, form.data.password);
 
-    const session = await lucia.createSession(user_id, {});
-    const sessionCookie = lucia.createSessionCookie(session.id);
-    event.cookies.set(sessionCookie.name, sessionCookie.value, {
-      path: '.',
-      ...sessionCookie.attributes,
-    });
+      // Auth: log in user.
+      const session = await lucia.createSession(user_id, {});
+      const sessionCookie = lucia.createSessionCookie(session.id);
+      event.cookies.set(sessionCookie.name, sessionCookie.value, {
+        path: '.',
+        ...sessionCookie.attributes,
+      });
+    } catch (exception) {
+      // Exception alreaady logged in external functionality.
 
-    redirect(302, '/');
+      // Check if error was because email is already existing.
+      const databaseError = getDatabaseError(exception);
+      if (databaseError.code === 'ER_DUP_ENTRY') {
+        return setError(form, 'email', 'Email already registered.');
+      }
+
+      // Return a general error message, avoid displaying sensitive data to the user.
+      return setError(form, '', 'Unspecified error.', { status: 500 });
+    }
+
+    // Redirect to profile page.
+    redirect(302, '/auth');
 
     /*
     return {
