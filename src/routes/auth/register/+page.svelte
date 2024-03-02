@@ -4,6 +4,7 @@
   export let data: PageData;
 </script>
 
+<h2>Register</h2>
 <div>
   <AuthForm data={data.form} />
 </div>

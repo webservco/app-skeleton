@@ -1,4 +1,4 @@
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -6,7 +6,7 @@ import { userAuthSchema } from '$lib/schema/userAuthSchema';
 import { getUserByEmail } from '$lib/server/storage/service/auth/getUserByEmail';
 import { Argon2id } from 'oslo/password';
 import { lucia } from '$lib/server/auth/lucia3';
-import type { PageServerLoad } from '../../../../.svelte-kit/types/src/routes/auth/register/$types';
+import { logger } from '$lib/server/logger/loggerWinston';
 
 export const load: PageServerLoad = async (event) => {
   // Auth.
@@ -64,14 +64,14 @@ export const actions: Actions = {
         path: '.',
         ...sessionCookie.attributes,
       });
-
-      // Redirect to profile page.
-      redirect(302, '/auth');
     } catch (exception) {
-      // Exception already logged in external functionality.
+      logger.error(exception);
 
       // Return a general error message, avoid displaying sensitive data to the user.
       return setError(form, '', 'Unspecified error.', { status: 500 });
     }
+
+    // Redirect to profile page.
+    redirect(302, '/auth');
   },
 };

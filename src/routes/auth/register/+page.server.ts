@@ -6,6 +6,7 @@ import { userAuthSchema } from '$lib/schema/userAuthSchema';
 import { getDatabaseError } from '$lib/server/storage/mysql2';
 import { lucia } from '$lib/server/auth/lucia3';
 import { registerUser } from '$lib/server/storage/service/auth/registerUser';
+import { logger } from '$lib/server/logger/loggerWinston';
 
 export const load: PageServerLoad = async (event) => {
   // Auth.
@@ -40,7 +41,7 @@ export const actions: Actions = {
         ...sessionCookie.attributes,
       });
     } catch (exception) {
-      // Exception already logged in external functionality.
+      logger.error(exception);
 
       // Check if error was because email is already existing.
       const databaseError = getDatabaseError(exception);
