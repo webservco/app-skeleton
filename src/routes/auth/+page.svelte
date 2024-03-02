@@ -12,4 +12,3 @@
     <Button>Sign out</Button>
   </form>
 </div>
-
