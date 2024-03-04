@@ -1,4 +1,4 @@
-name: auth
+name: app-skeleton
 type: php
 docroot: public
 php_version: '8.3'
@@ -13,7 +13,7 @@ use_dns_when_possible: true
 composer_version: '2'
 web_environment: []
 timezone: Europe/Budapest
-host_db_port: 32818
+host_db_port: 32900
 # Key features of DDEV's config.yaml:
 
 # name: <projectname> # Name of the project, automatically provides
