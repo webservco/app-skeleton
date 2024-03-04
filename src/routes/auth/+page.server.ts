@@ -5,8 +5,8 @@ import { lucia } from '$lib/server/auth/lucia3';
 export const load: PageServerLoad = async (event) => {
   // Auth.
   if (!event.locals.user) {
-    // User is already logged in.
-    redirect(302, '/auth/register');
+    // User is not logged in.
+    redirect(302, '/auth/login');
   }
 
   return {
