@@ -234,17 +234,20 @@
       <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
         {#if data.authenticated}
           <a
+            on:click={toggleNavigationMenu}
             href="/auth"
             class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
           >Profile</a
           >
         {:else}
           <a
+            on:click={toggleNavigationMenu}
             href="/auth/login"
             class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
           >Login</a
           >
           <a
+            on:click={toggleNavigationMenu}
             href="/auth/register"
             class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
           >Register</a
