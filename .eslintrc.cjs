@@ -27,5 +27,11 @@ module.exports = {
         parser: '@typescript-eslint/parser',
       },
     },
+    {
+      files: ['src/lib/components/ui/**/*.svelte'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 0,
+      },
+    },
   ],
 };
