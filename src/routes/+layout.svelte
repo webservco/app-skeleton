@@ -28,7 +28,7 @@
   ```
 -->
 <div class="min-h-full">
-  <nav class="bg-gray-800">
+  <nav class="bg-teal-800">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
@@ -192,7 +192,7 @@
           <button
             on:click={toggleNavigationMenu}
             type="button"
-            class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+            class="relative inline-flex items-center justify-center rounded-md bg-teal-800 p-2 text-gray-400 hover:bg-teal-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
             aria-controls="mobile-menu"
             aria-expanded="false"
           >
