@@ -7,6 +7,7 @@
   import IconLight from '~icons/heroicons/sun';
   import IconDark from '~icons/heroicons/moon';
   import { setMode, resetMode } from 'mode-watcher';
+  import { version } from '$app/environment';
 
   /**
    * Custom layout functionality.
@@ -45,7 +46,7 @@
         <div class="flex items-center">
           <div class="flex-shrink-0">
             <a class="text-gray-200" href="/" title="Home">
-              Auth
+              App v{version}
               <!--
               <img
                 class="h-8 w-8"
