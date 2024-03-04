@@ -46,7 +46,7 @@
         <div class="flex items-center">
           <div class="flex-shrink-0">
             <a class="text-gray-200" href="/" title="Home">
-              App v{version}
+              App
               <!--
               <img
                 class="h-8 w-8"
@@ -391,4 +391,7 @@
       <slot />
     </div>
   </main>
+  <div class="sticky top-[100vh] p-2 bg-accent">
+    <small>v{version}</small>
+  </div>
 </div>
