@@ -1,5 +1,16 @@
+<script lang="ts">
+  import { showNavigationMenu } from './navigationMenuStore';
+  import { toggleNavigationMenu } from './toggleNavigationMenu';
+
+  function handleNavigationMenu() {
+    if ($showNavigationMenu) {
+      toggleNavigationMenu(false);
+    }
+  }
+</script>
+
 <div class="flex-shrink-0">
-  <a class="text-gray-200" href="/" title="Home">
+  <a on:click={handleNavigationMenu} class="text-gray-200" href="/" title="Home">
     App
     <!--
       <img

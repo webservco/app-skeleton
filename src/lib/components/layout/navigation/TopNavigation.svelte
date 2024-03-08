@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { navigationData, navigationDataAuthenticated } from './navigationData';
   export let isAuthenticated: boolean;
 </script>
 
@@ -6,22 +7,21 @@
   <div class="ml-10 flex items-baseline space-x-4">
     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
     {#if isAuthenticated}
-      <a
-        href="/auth"
-        class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Profile</a
-      >
+      {#each navigationDataAuthenticated as item}
+        <a
+          href={item.location}
+          class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >{item.title}</a
+        >
+      {/each}
     {:else}
-      <a
-        href="/auth/login"
-        class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Login</a
-      >
-      <a
-        href="/auth/register"
-        class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Register</a
-      >
+      {#each navigationData as item}
+        <a
+          href={item.location}
+          class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >{item.title}</a
+        >
+      {/each}
     {/if}
 
     <!--

@@ -1,36 +1,36 @@
 <script lang="ts">
+  import { navigationData, navigationDataAuthenticated } from './navigationData';
+  import { showNavigationMenu } from './navigationMenuStore';
+  import { toggleNavigationMenu } from './toggleNavigationMenu';
+
   export let isAuthenticated: boolean;
 
-  let showNavigationMenu = false;
-
-  function toggleNavigationMenu() {
-    showNavigationMenu = !showNavigationMenu;
+  function handleNavigationMenu() {
+    toggleNavigationMenu(!$showNavigationMenu);
   }
 </script>
 
 <!-- Mobile menu, show/hide based on menu state. -->
-<div class="{showNavigationMenu ? '' : 'hidden'} md:hidden" id="mobile-menu">
+<div class="{$showNavigationMenu ? '' : 'hidden'} md:hidden" id="mobile-menu">
   <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
     {#if isAuthenticated}
-      <a
-        on:click={toggleNavigationMenu}
-        href="/auth"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Profile</a
-      >
+      {#each navigationDataAuthenticated as item}
+        <a
+          on:click={handleNavigationMenu}
+          href={item.location}
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >{item.title}</a
+        >
+      {/each}
     {:else}
-      <a
-        on:click={toggleNavigationMenu}
-        href="/auth/login"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Login</a
-      >
-      <a
-        on:click={toggleNavigationMenu}
-        href="/auth/register"
-        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-        >Register</a
-      >
+      {#each navigationData as item}
+        <a
+          on:click={handleNavigationMenu}
+          href={item.location}
+          class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          >{item.title}</a
+        >
+      {/each}
     {/if}
 
     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
