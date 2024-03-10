@@ -27,8 +27,10 @@ npm run lint && npm run check
 
 ## Setup
 
-- Edit `static/app.webmanifest`;
-- Update `static/img/icons`;
+- Customize `README.md`;
+- Customize `package.json`;
+- Customize `static/app.webmanifest`;
+- Customize `static/img/icons`;
 
 ---
 
