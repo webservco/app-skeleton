@@ -27,7 +27,6 @@ npm run lint && npm run check
 
 ## Setup
 
-- Edit `.ddev/config.yaml` (project name, db port);
 - Edit `static/app.webmanifest`;
 - Update `static/img/icons`;
 
