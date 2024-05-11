@@ -21,7 +21,7 @@
   <Form.Field {form} name="email">
     <Form.Control let:attrs>
       <Form.Label>Email</Form.Label>
-      <Input {...attrs} bind:value={$formData.email} />
+      <Input {...attrs} bind:value={$formData.email} type="email" />
     </Form.Control>
     <Form.Description>Email address.</Form.Description>
     <Form.FieldErrors />
