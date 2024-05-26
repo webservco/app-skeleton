@@ -5,10 +5,10 @@
   export let data;
 </script>
 
-<h2>{data.email}</h2>
+<h2 class="py-4 text-xl font-bold">{data.email}</h2>
 
-<div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-  <form method="post" class="w-2/3 space-y-6" use:enhance>
+<div>
+  <form method="post" class="space-y-4 sm:w-2/3" use:enhance>
     <Button>Sign out</Button>
   </form>
 </div>

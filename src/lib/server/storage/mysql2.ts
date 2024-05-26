@@ -14,6 +14,10 @@ export const databaseConnectionPool = mysql.createPool({
   queueLimit: 0,
   enableKeepAlive: true,
   keepAliveInitialDelay: 0,
+  /**
+   * "Force date types (TIMESTAMP, DATETIME, DATE) to be returned as strings rather than inflated into JavaScript Date objects."
+   */
+  dateStrings: true,
 });
 
 export function getDatabaseError(object: unknown): DatabaseError {

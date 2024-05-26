@@ -4,7 +4,8 @@
   export let data: PageData;
 </script>
 
-<h2>Register</h2>
+<h2 class="py-4 text-xl font-bold">Login</h2>
+
 <div>
   <AuthForm data={data.form} />
 </div>

@@ -17,6 +17,7 @@
   //import ProfileNotifications from '$lib/components/layout/navigation/ProfileNotifications.svelte';
   import TopNavigation from '$lib/components/layout/navigation/TopNavigation.svelte';
   import { ModeWatcher } from 'mode-watcher';
+  import { Toaster } from '$lib/components/ui/sonner';
   import '../app.pcss';
 
   export let data;
@@ -32,8 +33,8 @@
   <body class="h-full">
   ```
 -->
-<div class="min-h-full">
-  <nav class="bg-gray-800">
+<div class="flex min-h-screen flex-col">
+  <nav class="sticky top-0 z-50 bg-gray-800">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center justify-between">
         <div class="flex items-center">
@@ -65,9 +66,12 @@
 
   <Header />
 
-  <main>
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+  <main class="flex-grow">
+    <div class="mx-auto max-w-7xl px-4 pb-4 sm:px-6 lg:px-8">
       <!-- Your content -->
+
+      <!-- https://www.shadcn-svelte.com/docs/components/sonner -->
+      <Toaster richColors />
       <slot />
     </div>
   </main>
